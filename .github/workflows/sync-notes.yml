@@ -1,0 +1,54 @@
+name: Sync Notes from Obsidian
+
+on:
+  # 手动触发
+  workflow_dispatch:
+  
+  # 定时同步（每小时检查一次）
+  schedule:
+    - cron: '0 * * * *'
+  
+  # 也可以监听笔记仓库的 webhook（需要配置）
+
+env:
+  NOTES_REPO_URL: https://github.com/souvenal/pure-notes.git
+  PUBLISH_TAG: '#publish'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout blog repo
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Sync notes
+        run: node scripts/sync-notes.js
+        
+      - name: Check for changes
+        id: check
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Commit and push
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add content/posts/
+          git commit -m "📝 Auto-sync notes from Obsidian $(date +'%Y-%m-%d %H:%M')"
+          git push
+          
+      - name: Trigger rebuild
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          echo "笔记已同步，触发网站重建..."

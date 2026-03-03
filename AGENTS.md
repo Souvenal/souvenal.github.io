@@ -76,6 +76,78 @@ app/
 - [ ] Create about page with 3D avatar/profile
 - [ ] Add contact/social links
 
+## Content Architecture
+
+### Multi-Repository Setup
+
+This blog uses a **separation of concerns** architecture:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Content Flow                             │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   ┌──────────────┐      ┌──────────────┐                   │
+│   │ pure-notes   │      │   blog       │                   │
+│   │  (Obsidian)  │─────▶│  (Next.js)   │                   │
+│   │              │      │              │                   │
+│   │ Render/      │ sync │ app/         │                   │
+│   │ Languages/   │─────▶│ components/  │                   │
+│   │ Math/        │      │ content/     │                   │
+│   │              │      │      posts/  │                   │
+│   └──────────────┘      └──────────────┘                   │
+│          │                      │                          │
+│          │                      ▼                          │
+│          │            ┌──────────────┐                     │
+│          │            │ GitHub Pages │                     │
+│          │            │  (deployed)  │                     │
+│          │            └──────────────┘                     │
+│          │                                                 │
+│          └─ #publish tag triggers sync                     │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Why This Architecture?
+
+**pure-notes repository:**
+- ✅ Clean Obsidian workspace (no node_modules)
+- ✅ Fast sync across devices
+- ✅ Private notes in excluded directories
+- ✅ Version control for knowledge base
+
+**blog repository:**
+- ✅ Contains Next.js app and build config
+- ✅ Transform scripts for markdown conversion
+- ✅ CI/CD workflows for sync & deploy
+- ✅ Independent deployment cycle
+
+### How Sync Works
+
+1. **Authoring**: Write notes in Obsidian as usual
+2. **Publishing**: Add `#publish` tag to any note
+3. **Sync**: GitHub Actions detects changes hourly
+4. **Transform**: Script converts Obsidian links → blog format
+5. **Deploy**: Blog rebuilds automatically
+
+### File Locations
+
+```
+project/
+├── .github/
+│   ├── workflows/
+│   │   ├── deploy.yml          # Deploy to GitHub Pages
+│   │   └── sync-notes.yml      # Sync from Obsidian
+│   └── OBSIDIAN_SYNC_GUIDE.md  # Usage documentation
+├── scripts/
+│   └── sync-notes.js           # Sync & transform script
+├── content/
+│   └── posts/                  # Synced markdown files
+└── ...
+```
+
+See `.github/OBSIDIAN_SYNC_GUIDE.md` for detailed usage instructions.
+
 ## Build & Development Commands
 
 ```bash
