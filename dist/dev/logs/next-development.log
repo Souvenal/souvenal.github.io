@@ -1,0 +1,23 @@
+[00:00:00.566] Server  LOG     
+[00:00:00.566] Server  LOG       We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+[00:00:00.567] Server  LOG       The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+[00:00:00.567] Server  LOG       	- include was updated to add 'dist/types/**/*.ts'
+[00:00:00.567] Server  LOG       	- include was updated to add 'dist/dev/types/**/*.ts'
+[00:00:00.567] Server  LOG     
+[00:00:00.641] Server  LOG     ✓ Ready in 448ms
+[00:00:04.272] Server  LOG     ○ Compiling / ...
+[00:00:11.503] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:25.996] Browser WARN    THREE.THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[00:00:25.996] Browser WARN    THREE.THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[00:04:14.676] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:14.907] Browser WARN    THREE.THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[00:04:14.907] Browser WARN    THREE.THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[00:04:16.484] Browser LOG     打开文章: GPU 粒子系统优化 (ID: 1)
+[00:04:18.866] Browser LOG     打开文章: GPU 粒子系统优化 (ID: 1)
+[00:04:19.819] Browser LOG     打开文章: GLSL Shader 技巧 (ID: 2)
+[00:04:20.327] Browser LOG     打开文章: WebGL 性能调优 (ID: 3)
+[00:04:20.767] Browser LOG     打开文章: 光线追踪入门 (ID: 4)
+[00:04:21.036] Browser LOG     打开文章: Compute Shader 实战 (ID: 5)
+[00:04:45.728] Server  LOG     ✓ Compiled in 291ms
+[00:05:13.805] Server  LOG     ✓ Compiled in 40ms
